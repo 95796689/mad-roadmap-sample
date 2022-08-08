@@ -1,17 +1,21 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    compileSdk 32
+    compileSdk ConfigData.compileSdkVersion
 
     defaultConfig {
         applicationId "com.example.sad"
-        minSdk 21
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        minSdk ConfigData.minSdkVersion
+        targetSdk ConfigData.targetSdkVersion
+        versionCode ConfigData.versionCode
+        versionName ConfigData.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,8 +30,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -36,7 +40,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion Versions.COMPOSE_COMPILE
     }
     packagingOptions {
         resources {
@@ -48,14 +52,69 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    //androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation project(':base-android')
+    implementation project(':base-ui-compose')
+    implementation project(':discover')
+    implementation project(':user-auth')
+
+    // Startup for initialize component
+    implementation(Libs.STARTUP)
+    // logger
+    implementation(Libs.TIMBER)
+    // crashlytics
+    implementation(Libs.FIREBASE_CRASHLYTICS)
+    implementation(Libs.FIREBASE_ANALYTICS)
+    implementation platform(Libs.FIREBASE_BOM)
+    // hilt
+    implementation(Libs.HILT_LIBRARY)
+    kapt(Libs.HILT_COMPILER)
+    // compose
+    implementation(Libs.COMPOSE_UI)
+    implementation(Libs.COMPOSE_MATERIAL)
+    implementation(Libs.COMPOSE_PREVIEW)
+    implementation(Libs.COMPOSE_TEST)
+    implementation(Libs.COMPOSE_TOOL)
+    implementation(Libs.COMPOSE_FOUNDATION)
+    implementation(Libs.COMPOSE_ICON_CORE)
+    implementation(Libs.COMPOSE_ICON_EXTEND)
+    implementation(Libs.COMPOSE_ACTIVITY)
+    implementation(Libs.COMPOSE_VIEW_MODEL)
+    implementation(Libs.COMPOSE_HILT_NAVIGATION)
+    // coil
+    implementation(Libs.COIL)
+    implementation(Libs.COIL_COMPOSE)
+    // okhttp
+    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
+    // work manager
+    implementation(Libs.WORK_MANAGER)
+    implementation(Libs.HILT_WORK_MANAGER)
+    kapt(Libs.HILT_WORK_MANAGER_COMPILER)
+    // navigation
+    implementation(Libs.NAVIGATION_FRAGMENT)
+    implementation(Libs.NAVIGATION_UI)
+    implementation(Libs.NAVIGATION_TEST)
+    implementation(Libs.NAVIGATION_COMPOSE)
+    implementation(Libs.NAVIGATION_DYNAMIC)
+    // accompanist
+    implementation(Libs.NAVIGATION_ANIMATION)
+    // coroutine
+    implementation(Libs.COROUTINES)
+    implementation(Libs.COROUTINES_CORE)
+    // appcompat
+//    implementation(Libs.APPCOMPAT)
+    // lifecycle
+    implementation(Libs.LIFECYCLE_KTX)
+    // room
+    implementation(Libs.ROOM_RUNTIME)
+    implementation(Libs.ROOM_COROUTINE)
+    implementation(Libs.ROOM_TEST)
+    kapt(Libs.ROOM_COMPILER)
+}
+
+kapt {
+    correctErrorTypes true
 }

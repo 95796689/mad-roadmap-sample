@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "676438560037",
+    "project_id": "yixiang-sad",
+    "storage_bucket": "yixiang-sad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676438560037:android:2824a6a7fc7c9b3b859ecc",
+        "android_client_info": {
+          "package_name": "com.example.sad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676438560037-it1g5jquml3v3kcirjg1s8mhfakgr6kg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrAZ69DhSwAAS49dZHCNbyZr10YnPDSsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676438560037-it1g5jquml3v3kcirjg1s8mhfakgr6kg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
