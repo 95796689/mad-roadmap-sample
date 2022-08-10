@@ -52,4 +52,6 @@ dependencies {
     // coroutine
     implementation(Libs.COROUTINES)
     implementation(Libs.COROUTINES_CORE)
+    // timber
+    implementation(Libs.TIMBER)
 }
