@@ -9,15 +9,15 @@ import timber.log.Timber
 import javax.inject.Inject
 
 interface TopicDataSource {
-    suspend fun getTopic(): Flow<Result<List<Topic>>>
-    suspend fun addTopic(title: String, content: String)
+    fun getTopic(): Flow<List<Topic>>
+    fun addTopic(title: String, content: String)
 }
 
 class FirestoreTopicDataSource @Inject constructor(
     private val database: DatabaseReference
 ) : TopicDataSource {
 
-    override suspend fun getTopic(): Flow<Result<List<Topic>>> {
+    override fun getTopic(): Flow<List<Topic>> {
         addTopic("test1", "hello")
         addTopic("test2", "good firebase")
 
@@ -28,13 +28,12 @@ class FirestoreTopicDataSource @Inject constructor(
                     // Get Post object and use the values to update the UI
                     @Suppress("UNCHECKED_CAST")
                     val topics = dataSnapshot.value as List<Topic>
-                    trySend(Result.success(topics))
+                    trySend(topics)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
                     // Getting Post failed, log a message
                     Timber.w("loadTopic:onCancelled", databaseError.toException())
-                    trySend(Result.failure(databaseError.toException()))
                 }
             }
             task.addListenerForSingleValueEvent(topicListener)
@@ -61,7 +60,7 @@ class FirestoreTopicDataSource @Inject constructor(
 //        }
     }
 
-    override suspend fun addTopic(title: String, content: String) {
+    override fun addTopic(title: String, content: String) {
         val topic = Topic(title = title, content = content, page = 0)
         database.child(TOPIC_COLLECTION).setValue(topic)
     }

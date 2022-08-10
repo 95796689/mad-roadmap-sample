@@ -4,6 +4,8 @@ import com.dropbox.android.external.store4.Fetcher
 import com.dropbox.android.external.store4.SourceOfTruth
 import com.dropbox.android.external.store4.Store
 import com.dropbox.android.external.store4.StoreBuilder
+import com.example.android_data.Topic
+import com.example.android_data.TopicDao
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -11,10 +13,33 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+typealias TopicStore = Store<Int, List<Topic>>
+
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class TopicModule {
-    @Binds
+internal object TopicModule {
+//    @Binds
+//    @Singleton
+//    internal abstract fun bindTopicDataSource(dataSource: FirestoreTopicDataSource): TopicDataSource
+
+    @Provides
     @Singleton
-    internal abstract fun bindTopicDataSource(dataSource: FirestoreTopicDataSource): TopicDataSource
+    fun provideTopicStore(
+        topicDataSource: TopicDataSource,
+        topicDao: TopicDao
+    ): TopicStore = StoreBuilder.from(
+        fetcher = Fetcher.ofFlow {
+            topicDataSource.getTopic()
+        },
+        sourceOfTruth = SourceOfTruth.of(
+            reader = { page ->
+                topicDao.entriesObservable(page)
+            },
+            writer = { _, response ->
+                topicDao.insertAll(response)
+            },
+            delete = topicDao::deletePage,
+            deleteAll = topicDao::deleteAll,
+        )
+    ).build()
 }

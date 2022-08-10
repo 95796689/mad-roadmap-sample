@@ -1,9 +1,7 @@
 package com.example.android_data
 
 import androidx.paging.PagingSource
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -24,4 +22,7 @@ abstract class TopicDao {
 
     @Query("SELECT MAX(page) from topic")
     abstract suspend fun getLastPage(): Int?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertAll(topics: List<Topic>)
 }
