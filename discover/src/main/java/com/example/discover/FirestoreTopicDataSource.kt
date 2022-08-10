@@ -8,16 +8,11 @@ import kotlinx.coroutines.flow.callbackFlow
 import timber.log.Timber
 import javax.inject.Inject
 
-interface TopicDataSource {
-    fun getTopic(): Flow<List<Topic>>
-    fun addTopic(title: String, content: String)
-}
-
 class FirestoreTopicDataSource @Inject constructor(
     private val database: DatabaseReference
-) : TopicDataSource {
+)  {
 
-    override fun getTopic(): Flow<List<Topic>> {
+    fun getTopic(): Flow<List<Topic>> {
         addTopic("test1", "hello")
         addTopic("test2", "good firebase")
 
@@ -39,28 +34,9 @@ class FirestoreTopicDataSource @Inject constructor(
             task.addListenerForSingleValueEvent(topicListener)
             awaitClose { task.removeEventListener(topicListener) }
         }
-
-//        return suspendCancellableCoroutine<List<Topic>> {
-//            val task = database.child(TOPIC_COLLECTION)
-//            val topicListener = object : ValueEventListener {
-//                override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    // Get Post object and use the values to update the UI
-//                    val topics: List<Topic> = dataSnapshot.value as List<Topic>
-//                    it.resume(topics, null)
-//                }
-//
-//                override fun onCancelled(databaseError: DatabaseError) {
-//                    // Getting Post failed, log a message
-//                    Timber.w("loadTopic:onCancelled", databaseError.toException())
-//                    it.resumeWithException(databaseError.toException())
-//                }
-//            }
-//            it.invokeOnCancellation { task.removeEventListener(topicListener) }
-//            task.addValueEventListener(topicListener)
-//        }
     }
 
-    override fun addTopic(title: String, content: String) {
+    fun addTopic(title: String, content: String) {
         val topic = Topic(title = title, content = content, page = 0)
         database.child(TOPIC_COLLECTION).setValue(topic)
     }

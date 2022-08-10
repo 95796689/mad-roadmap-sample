@@ -66,4 +66,7 @@ dependencies {
     implementation(platform(Libs.FIREBASE_BOM))
     implementation(Libs.FIREBASE_DATABASE)
     implementation(Libs.TIMBER)
+    // hilt
+    implementation(Libs.HILT_LIBRARY)
+    kapt(Libs.HILT_COMPILER)
 }

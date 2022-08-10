@@ -12,7 +12,7 @@ object Libs {
     const val HILT_GRADLE = "com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}"
     const val HILT_WORK_MANAGER_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_WORK_MANAGER}"
     const val HILT_WORK_MANAGER = "androidx.hilt:hilt-work:${Versions.HILT_WORK_MANAGER}"
-    const val HILT_VIEW_MODEL = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_WORK_MANAGER}"
+    const val HILT_VIEW_MODEL = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_VIEW_MODEL}"
     const val COMPOSE_UI = "androidx.compose.ui:ui:${Versions.COMPOSE}"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE}"
     const val COMPOSE_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"

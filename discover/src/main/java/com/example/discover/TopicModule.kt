@@ -24,7 +24,7 @@ internal object TopicModule {
     @Provides
     @Singleton
     fun provideTopicStore(
-        topicDataSource: TopicDataSource,
+        topicDataSource: FirestoreTopicDataSource,
         topicDao: TopicDao
     ): TopicRepository = StoreBuilder.from(
         fetcher = Fetcher.ofFlow {
