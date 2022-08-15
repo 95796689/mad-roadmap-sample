@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 abstract class TopicDao {
     @Transaction
-    @Query("SELECT * FROM topic WHERE page = :page ORDER BY  id ASC")
-    abstract fun entriesObservable(page: Int): Flow<List<Topic>>
+    //@Query("SELECT * FROM topic WHERE page = :page ORDER BY id ASC")
+    @Query("SELECT * FROM topic")
+    abstract fun entriesObservable(): Flow<List<Topic>>
 
     @Transaction
     @Query("SELECT * FROM topic ORDER BY page ASC, id ASC")

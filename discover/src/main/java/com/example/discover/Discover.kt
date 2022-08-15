@@ -1,9 +1,9 @@
 package com.example.discover
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -12,8 +12,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.android_data.Topic
 import com.example.base_ui_compose.Layout
+import com.example.base_ui_compose.bodyWidth
 import com.example.base_ui_compose.rememberStateWithLifecycle
 import com.example.base_ui_compose.theme.AppBarAlphas
 import com.example.base_ui_compose.ui.RefreshButton
@@ -76,9 +79,26 @@ internal fun Discover(
     ) { paddingValue ->
         Scaffold(
             modifier = Modifier.padding(paddingValue)
-        ) {
-            Text(text = "hello compose",
-                 modifier = Modifier.padding(it))
+        ) { paddingValue ->
+            LazyColumn(
+                contentPadding = paddingValue,
+                modifier = Modifier.bodyWidth(),
+            ) {
+                item {
+                    Spacer(Modifier.height(Layout.gutter))
+                }
+
+                for (topic in state.topicItems) {
+                    item {
+                        TopicCard(topic = topic,
+                            modifier = Modifier.fillMaxWidth())
+                    }
+                }
+
+                item {
+                    Spacer(Modifier.height(Layout.gutter))
+                }
+            }
         }
     }
 }
@@ -113,4 +133,29 @@ fun DiscoverAppBar(
             }
         },
     )
+}
+
+@Composable
+private fun TopicCard(
+    topic: Topic,
+    modifier: Modifier = Modifier,
+) {
+    Surface(modifier) {
+        Column(
+            Modifier.padding(
+                horizontal = Layout.bodyMargin,
+                vertical = Layout.gutter,
+            )
+        ) {
+            topic.title?.let {
+                Text(text = it)
+            }
+
+            Spacer(Modifier.height(4.dp))
+
+            topic.content?.let {
+                Text(text = it)
+            }
+        }
+    }
 }

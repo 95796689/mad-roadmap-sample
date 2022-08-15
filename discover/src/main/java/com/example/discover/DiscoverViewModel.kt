@@ -39,7 +39,7 @@ internal class DiscoverViewModel @Inject constructor(
     )
 
     init {
-        observeTopicUserCase(ObserveTopicUserCase.Params(20))
+        observeTopicUserCase(0)
     }
 
     fun refresh() {

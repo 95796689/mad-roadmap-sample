@@ -1,18 +1,14 @@
 package com.example.discover
 
 import com.example.android_data.Topic
-import com.example.android_data.TopicDao
 import com.example.base_android.SubjectInteractor
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ObserveTopicUserCase @Inject constructor(
-    private val topicDao: TopicDao
-) : SubjectInteractor<ObserveTopicUserCase.Params, List<Topic>>() {
-
-    data class Params(val count: Int = 20)
-
-    override fun createObservable(params: Params): Flow<List<Topic>> {
-        return topicDao.entriesObservable(params.count)
+    private val repository: TopicRepository
+) : SubjectInteractor<Int, List<Topic>>() {
+    override fun createObservable(params: Int): Flow<List<Topic>> {
+        return repository.getTopic()
     }
 }
