@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class DiscoverViewModel @Inject constructor(
     private val updateTopicsUserCase: UpdateTopicsUserCase,
-    private val observeTopicUserCase: ObserveTopicUserCase
+    observeTopicUserCase: ObserveTopicUserCase
 ) : ViewModel() {
     private val topicLoadingStatus = ObservableLoadingCounter()
     private val uiMessageManager = UiMessageManager()

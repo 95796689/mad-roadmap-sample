@@ -1,7 +1,6 @@
 package com.example.discover
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -79,9 +78,9 @@ internal fun Discover(
     ) { paddingValue ->
         Scaffold(
             modifier = Modifier.padding(paddingValue)
-        ) { paddingValue ->
+        ) {
             LazyColumn(
-                contentPadding = paddingValue,
+                contentPadding = it,
                 modifier = Modifier.bodyWidth(),
             ) {
                 item {
