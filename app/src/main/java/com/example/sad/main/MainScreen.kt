@@ -63,7 +63,7 @@ internal fun MainScreen(
                         }
                     }
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().navigationBarsPadding()
             )
         }
     ) {

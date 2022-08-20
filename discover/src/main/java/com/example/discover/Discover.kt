@@ -74,7 +74,7 @@ internal fun Discover(
                     .fillMaxWidth()
             )
         },
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().statusBarsPadding(),
     ) { paddingValue ->
         Scaffold(
             modifier = Modifier.padding(paddingValue)
@@ -147,13 +147,15 @@ private fun TopicCard(
             )
         ) {
             topic.title?.let {
-                Text(text = it)
+                Text(text = it, style = MaterialTheme.typography.subtitle1)
             }
 
             Spacer(Modifier.height(4.dp))
 
             topic.content?.let {
-                Text(text = it)
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    Text(text = it, style = MaterialTheme.typography.body1)
+                }
             }
         }
     }

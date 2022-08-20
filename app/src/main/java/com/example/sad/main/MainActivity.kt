@@ -33,16 +33,11 @@ class MainActivity : SadActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        WindowCompat.setDecorFitsSystemWindows(window, true)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val composeView = ComposeView(this).apply {
-            setContent {
-                SadContent()
-            }
+        setContent {
+            SadContent()
         }
-
-        setOwners()
-        this.setContentView(composeView)
     }
 
     @Composable
@@ -56,18 +51,5 @@ class MainActivity : SadActivity() {
                 MainScreen(analytics = analytics)
             }
         }
-    }
-}
-
-private fun ComponentActivity.setOwners() {
-    val decorView = window.decorView
-    if (ViewTreeLifecycleOwner.get(decorView) == null) {
-        ViewTreeLifecycleOwner.set(decorView, this)
-    }
-    if (ViewTreeViewModelStoreOwner.get(decorView) == null) {
-        ViewTreeViewModelStoreOwner.set(decorView, this)
-    }
-    if (decorView.findViewTreeSavedStateRegistryOwner() == null) {
-        decorView.setViewTreeSavedStateRegistryOwner(this)
     }
 }
