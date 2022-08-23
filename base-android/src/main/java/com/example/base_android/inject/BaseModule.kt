@@ -1,4 +1,4 @@
-package com.example.base_android
+package com.example.base_android.inject
 
 import com.example.base_android.util.Analytics
 import com.example.base_android.util.SadAnalytics
@@ -12,7 +12,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class BaseModule {
-
     @Singleton
     @Binds
     internal abstract fun provideAnalytics(binds: SadAnalytics): Analytics

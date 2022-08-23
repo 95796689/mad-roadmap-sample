@@ -15,7 +15,7 @@ dependencyResolutionManagement {
 rootProject.name = "SAD"
 include ':app'
 include ':base-android'
-include ':base-ui-compose'
+include ':base-compose'
 include ':user-auth'
 include ':discover'
 include ':base-data'

@@ -1,4 +1,4 @@
-package com.example.base_android
+package com.example.base_android.inject
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

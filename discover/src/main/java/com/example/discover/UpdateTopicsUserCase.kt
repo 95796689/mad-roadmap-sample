@@ -1,5 +1,6 @@
 package com.example.discover
 
+import com.example.android_data.TopicRepository
 import com.example.base_android.AppCoroutineDispatchers
 import com.example.base_android.Interactor
 import javax.inject.Inject

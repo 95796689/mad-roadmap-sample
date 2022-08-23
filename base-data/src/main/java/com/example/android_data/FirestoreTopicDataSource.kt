@@ -1,4 +1,4 @@
-package com.example.discover
+package com.example.android_data
 
 import com.example.android_data.Topic
 import com.google.firebase.database.*

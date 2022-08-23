@@ -1,4 +1,4 @@
-package com.example.base_android
+package com.example.base_android.base
 
 sealed class Result<out R> {
 

@@ -29,7 +29,6 @@ import com.example.base_ui_compose.theme.AppBarAlphas
 import com.example.base_ui_compose.R
 import com.example.sad.AppNavigation
 import com.example.sad.Screen
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 @Composable

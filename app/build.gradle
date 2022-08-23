@@ -51,13 +51,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    testImplementation 'junit:junit:4.13.2'
-    //androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
     implementation project(':base-android')
-    implementation project(':base-ui-compose')
+    implementation project(':base-compose')
     implementation project(':discover')
     implementation project(':user-auth')
 
@@ -99,20 +94,11 @@ dependencies {
     implementation(Libs.NAVIGATION_TEST)
     implementation(Libs.NAVIGATION_COMPOSE)
     implementation(Libs.NAVIGATION_DYNAMIC)
-    // accompanist
-    implementation(Libs.NAVIGATION_ANIMATION)
     // coroutine
     implementation(Libs.COROUTINES)
     implementation(Libs.COROUTINES_CORE)
-    // appcompat
-//    implementation(Libs.APPCOMPAT)
     // lifecycle
     implementation(Libs.LIFECYCLE_KTX)
-    // room
-    implementation(Libs.ROOM_RUNTIME)
-    implementation(Libs.ROOM_COROUTINE)
-    implementation(Libs.ROOM_TEST)
-    kapt(Libs.ROOM_COMPILER)
 }
 
 kapt {

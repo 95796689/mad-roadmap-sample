@@ -45,7 +45,7 @@ android {
 dependencies {
 
     implementation(project(":base-android"))
-    implementation(project(":base-ui-compose"))
+    implementation(project(":base-compose"))
     implementation(project(":base-data"))
 
     // compose
@@ -60,11 +60,7 @@ dependencies {
     implementation(Libs.COMPOSE_ACTIVITY)
     implementation(Libs.COMPOSE_VIEW_MODEL)
     implementation(Libs.COMPOSE_HILT_NAVIGATION)
-    // dropbox
-    implementation(Libs.DROPBOX_STORE)
-    // firebase
-    implementation(platform(Libs.FIREBASE_BOM))
-    implementation(Libs.FIREBASE_DATABASE)
+    // timber
     implementation(Libs.TIMBER)
     // hilt
     implementation(Libs.HILT_LIBRARY)
