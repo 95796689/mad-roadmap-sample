@@ -9,6 +9,7 @@ object Versions {
     const val FIREBASE_BOM = "30.2.0"
     const val HILT = "2.42"
     const val HILT_VIEW_MODEL = "1.0.0-alpha01"
+    const val HILT_TEST = "2.38.1"
     const val COMPOSE = "1.2.0-beta02"
     const val COMPOSE_COMPILE = "1.3.0-beta01"
     const val COMPOSE_ACTIVITY = "1.4.0"
@@ -26,4 +27,9 @@ object Versions {
     const val LIFECYCLE_KTX = "2.5.0"
     const val DROPBOX_STORE= "4.0.5"
     const val ROOM = "2.5.0-alpha02"
+    const val JUNIT = "4.13.2"
+    const val JUNIT_KTX = "1.1.3"
+    const val ROBOLECTRIC = "4.8.2"
+    const val TEST_CORE = "2.1.0"
+    const val HAMCREST = "2.2"
 }

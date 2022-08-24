@@ -51,6 +51,7 @@ https://www.youtube.com/watch?v=B8ppnjGPAGE
 https://medium.com/androiddevelopers/suspending-over-views-19de9ebd7020
 https://www.youtube.com/watch?v=IQf-vtIC-Uc
 https://medium.com/androiddevelopers/the-suspend-modifier-under-the-hood-b7ce46af624f
+https://developer.android.com/kotlin/coroutines/test
 
 kotlin Flow:https://elizarov.medium.com/reactive-streams-and-kotlin-flows-bfd12772cda4
 https://developer.android.com/kotlin/flow
@@ -86,6 +87,7 @@ https://medium.com/androiddevelopers/dependency-injection-on-android-with-hilt-6
 https://medium.com/androiddevelopers/scoping-in-android-and-hilt-c2e5222317c0
 https://dagger.dev/hilt/
 https://dagger.dev/hilt/gradle-setup
+https://developer.android.com/training/dependency-injection/hilt-testing
 
 dagger:https://developer.android.com/training/dependency-injection/dagger-basics
 
@@ -149,3 +151,7 @@ https://firebase.google.com/docs/firestore/quickstart?hl=zh&authuser=0
 
 coil:
 https://coil-kt.github.io/coil/
+
+test:
+http://robolectric.org/
+https://developer.android.com/training/testing

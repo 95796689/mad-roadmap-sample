@@ -1,5 +1,3 @@
-
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -56,9 +54,18 @@ dependencies {
     // hilt
     implementation(Libs.HILT_LIBRARY)
     kapt(Libs.HILT_COMPILER)
+    testImplementation(Libs.HILT_TEST)
+    kaptTest(Libs.HILT_TEST_COMPILER)
     // firebase
     implementation(platform(Libs.FIREBASE_BOM))
     implementation(Libs.FIREBASE_DATABASE)
     // timber
     implementation(Libs.TIMBER)
+    // test
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.ROBOLECTRIC)
+    testImplementation(Libs.JUNIT_KTX)
+    testImplementation(Libs.TEST_CORE)
+    testImplementation(Libs.COROUTINES_TEST)
+    testImplementation(Libs.HAMCREST)
 }
