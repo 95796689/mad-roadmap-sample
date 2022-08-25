@@ -1,7 +1,8 @@
-package com.example.android_data
+package com.example.android_data.util
 
 import android.content.Context
 import androidx.room.Room
+import com.example.android_data.SadDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,4 +20,6 @@ object TestDatabaseModule {
             .allowMainThreadQueries()
             .build()
     }
+
+
 }

@@ -68,4 +68,5 @@ dependencies {
     testImplementation(Libs.TEST_CORE)
     testImplementation(Libs.COROUTINES_TEST)
     testImplementation(Libs.HAMCREST)
+    testImplementation(Libs.MOCKITO)
 }

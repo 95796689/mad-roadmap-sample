@@ -1,7 +1,8 @@
-package com.example.android_data
+package com.example.android_data.util
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.android_data.MainCoroutineRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltTestApplication
 import org.junit.Rule
@@ -16,4 +17,7 @@ abstract class DatabaseTest {
 
     @get:Rule(order = 1)
     val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule(order = 2)
+    val coroutineRule = MainCoroutineRule()
 }

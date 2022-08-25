@@ -51,4 +51,5 @@ object Libs {
     const val ROBOLECTRIC = "org.robolectric:robolectric:${Versions.ROBOLECTRIC}"
     const val TEST_CORE = "androidx.arch.core:core-testing:${Versions.TEST_CORE}"
     const val HAMCREST = "org.hamcrest:hamcrest:${Versions.HAMCREST}"
+    const val MOCKITO = "org.mockito:mockito-core:${Versions.MOCKITO}"
 }

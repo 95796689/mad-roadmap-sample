@@ -9,13 +9,16 @@ import kotlinx.coroutines.flow.callbackFlow
 import timber.log.Timber
 import javax.inject.Inject
 
-typealias TopicMap = Map<String, List<Topic>>
+
+interface TopicDataSource {
+    fun getTopic(): Flow<List<Topic>>
+}
 
 class FirestoreTopicDataSource @Inject constructor(
     private val database: DatabaseReference
-)  {
+) : TopicDataSource {
 
-    fun getTopic(): Flow<List<Topic>> {
+    override fun getTopic(): Flow<List<Topic>> {
         addTopic("test1", "hello")
 
         return callbackFlow {

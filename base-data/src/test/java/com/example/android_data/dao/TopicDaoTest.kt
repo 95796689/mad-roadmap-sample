@@ -3,6 +3,7 @@ package com.example.android_data.dao
 import com.example.android_data.*
 import com.example.android_data.getTopicList
 import com.example.android_data.insertTopic
+import com.example.android_data.util.DatabaseTest
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -10,10 +11,12 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.nullValue
 import org.junit.Before
 import org.junit.Test
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @UninstallModules(RoomDatabaseModule::class)
 @HiltAndroidTest
 class TopicDaoTest : DatabaseTest() {
@@ -37,5 +40,14 @@ class TopicDaoTest : DatabaseTest() {
         val id = topics[0].id
         val topicResult = topicDao.queryTopicWithId(id)
         assertThat(topicResult, `is`(topics[0]))
+    }
+
+    @Test
+    fun delete() = runTest {
+        val topics = getTopicList()
+        topicDao.insertAll(topics)
+        val topic = topics[0]
+        topicDao.deleteTopic(topic)
+        assertThat(topicDao.queryTopicWithId(topic.id), `is`(nullValue()))
     }
 }

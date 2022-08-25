@@ -24,12 +24,4 @@ object AppModule {
     fun provideFirebaseAnalytics(
         @ApplicationContext context: Context
     ): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
-
-    @Singleton
-    @Provides
-    fun provideCoroutineDispatchers() = AppCoroutineDispatchers(
-        io = Dispatchers.IO,
-        computation = Dispatchers.Default,
-        main = Dispatchers.Main
-    )
 }

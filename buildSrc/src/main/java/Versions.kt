@@ -32,4 +32,5 @@ object Versions {
     const val ROBOLECTRIC = "4.8.2"
     const val TEST_CORE = "2.1.0"
     const val HAMCREST = "2.2"
+    const val MOCKITO  = "4.0.0"
 }

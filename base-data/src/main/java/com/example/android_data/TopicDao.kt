@@ -24,6 +24,9 @@ abstract class TopicDao {
     @Query("DELETE FROM topic")
     abstract suspend fun deleteAll()
 
+    @Delete
+    abstract suspend fun deleteTopic(topic: Topic): Int
+
     @Query("SELECT MAX(page) from topic")
     abstract suspend fun getLastPage(): Int?
 

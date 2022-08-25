@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class TopicRepository @Inject constructor(
-    private val topicDataSource: FirestoreTopicDataSource,
+    private val topicDataSource: TopicDataSource,
     private val topicDao: TopicDao,
     private val appCoroutineDispatchers: AppCoroutineDispatchers
 ) {
