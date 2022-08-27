@@ -52,4 +52,5 @@ object Libs {
     const val TEST_CORE = "androidx.arch.core:core-testing:${Versions.TEST_CORE}"
     const val HAMCREST = "org.hamcrest:hamcrest:${Versions.HAMCREST}"
     const val MOCKITO = "org.mockito:mockito-core:${Versions.MOCKITO}"
+    const val DATASTORE = "androidx.datastore:datastore-preferences:${Versions.DATASTORE}"
 }

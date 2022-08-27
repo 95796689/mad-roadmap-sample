@@ -7,6 +7,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.discover.Discover
+import com.example.user_auth.AuthScreen
 
 
 internal sealed class Screen(val route: String) {
@@ -15,16 +16,9 @@ internal sealed class Screen(val route: String) {
     object Mine : Screen("mine")
 }
 
-//private sealed class LeafScreen(
-//    private val route: String,
-//) {
-//    fun createRoute(root: Screen) = "${root.route}/$route"
-//
-//    object Discover : LeafScreen("discover")
-//    object Message : LeafScreen("message")
-//    object Mine : LeafScreen("mine")
-//    object Account : LeafScreen("account")
-//}
+internal sealed class LeafScreen(val route: String) {
+    object Login : LeafScreen("login")
+}
 
 @ExperimentalAnimationApi
 @Composable
@@ -39,7 +33,16 @@ internal fun AppNavigation(
             route = Screen.Discover.route
         ) {
             Discover(
+                loginAction = {
+                    navController.navigate(LeafScreen.Login.route)
+                }
             )
+        }
+
+        composable(
+            route = LeafScreen.Login.route
+        ) {
+            AuthScreen()
         }
     }
 }

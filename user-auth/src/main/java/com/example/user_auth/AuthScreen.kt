@@ -16,11 +16,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun LoginScreen() {
-//    val viewModel: LoginViewModel = hiltViewModel()
-//    val uiState by viewModel.uiState
-//
-//    EmailField(uiState.email, viewModel::onEmailChange, Modifier.fillMaxWidth())
+fun AuthScreen() {
+    AuthScreen(viewModel = hiltViewModel())
+}
+
+@Composable
+internal fun AuthScreen(
+    viewModel: AccountAuthViewModel
+) {
+    val uiState by viewModel.uiState
+
+    EmailField(uiState.email, viewModel::onEmailChange, Modifier.fillMaxWidth())
 }
 
 @Composable

@@ -18,25 +18,30 @@ import com.example.base_ui_compose.Layout
 import com.example.base_ui_compose.bodyWidth
 import com.example.base_ui_compose.rememberStateWithLifecycle
 import com.example.base_ui_compose.theme.AppBarAlphas
+import com.example.base_ui_compose.ui.LoginButton
 import com.example.base_ui_compose.ui.RefreshButton
 import com.example.base_ui_compose.ui.SwipeDismissSnackbarHost
 
 @Composable
-fun Discover() {
+fun Discover(
+    loginAction: () -> Unit
+) {
     Discover(
+        loginAction = loginAction,
         viewModel = hiltViewModel(),
     )
 }
 
 @Composable
 internal fun Discover(
-    viewModel: DiscoverViewModel,
+    loginAction: () -> Unit,
+    viewModel: DiscoverViewModel
 ) {
     val viewState by rememberStateWithLifecycle(viewModel.state)
 
     Discover(
         state = viewState,
-        refresh = { viewModel.refresh() },
+        loginAction = loginAction,
         onMessageShown = { viewModel.clearMessage(it) }
     )
 }
@@ -44,7 +49,7 @@ internal fun Discover(
 @Composable
 internal fun Discover(
     state: DiscoverViewState,
-    refresh: () -> Unit,
+    loginAction: () -> Unit,
     onMessageShown: (id: Long) -> Unit,
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -62,7 +67,7 @@ internal fun Discover(
         topBar = {
             DiscoverAppBar(
                 refreshing = state.topicRefreshing,
-                onRefreshActionClick = refresh,
+                onLoginActionClick = loginAction,
                 modifier = Modifier.fillMaxWidth()
             )
         },
@@ -105,7 +110,7 @@ internal fun Discover(
 @Composable
 fun DiscoverAppBar(
     refreshing: Boolean,
-    onRefreshActionClick: () -> Unit,
+    onLoginActionClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
@@ -126,7 +131,7 @@ fun DiscoverAppBar(
                     modifier = Modifier.align(Alignment.CenterVertically)
                 ) { isRefreshing ->
                     if (!isRefreshing) {
-                        RefreshButton(onClick = onRefreshActionClick)
+                        LoginButton(onClick = onLoginActionClick)
                     }
                 }
             }

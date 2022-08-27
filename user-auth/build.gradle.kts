@@ -24,9 +24,17 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILE
+    }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -60,4 +68,6 @@ dependencies {
     implementation(Libs.COMPOSE_HILT_NAVIGATION)
 
     implementation(Libs.TIMBER)
+
+    implementation(Libs.DATASTORE)
 }

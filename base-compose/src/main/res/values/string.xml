@@ -6,4 +6,6 @@
 
     <string name="cd_refresh">Refresh</string>
     <string name="cd_profile_pic">Profile picture for %s</string>
+
+    <string name="login">login</string>
 </resources>

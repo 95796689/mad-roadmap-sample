@@ -8,7 +8,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class AccountAuthDataSource @Inject constructor() {
+class FirebaseAccountAuthDataSource @Inject constructor() {
 
     @Inject
     lateinit var auth: FirebaseAuth

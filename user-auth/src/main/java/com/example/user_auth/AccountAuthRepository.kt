@@ -6,18 +6,18 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AccountAuthRepository @Inject constructor(
-    private val accountAuthDataSource: AccountAuthDataSource,
+    private val firebaseAccountAuthDataSource: FirebaseAccountAuthDataSource,
     private val appDispatcher: AppCoroutineDispatchers
 ) {
     suspend fun authenticate(email: String, password: String): AuthResult {
         return withContext(appDispatcher.io) {
-            accountAuthDataSource.authenticate(email, password)
+            firebaseAccountAuthDataSource.authenticate(email, password)
         }
     }
 
     suspend fun createAccount(email: String, password: String): AuthResult {
         return withContext(appDispatcher.io) {
-            accountAuthDataSource.createAccount(email, password)
+            firebaseAccountAuthDataSource.createAccount(email, password)
         }
     }
 }
