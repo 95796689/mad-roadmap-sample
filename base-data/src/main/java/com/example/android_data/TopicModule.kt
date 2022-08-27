@@ -8,8 +8,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class TopicDataSourceModule {
+abstract class TopicModule {
     @Binds
     @Singleton
     internal abstract fun provideTopicDataSource(dataSource: FirestoreTopicDataSource): TopicDataSource
+
+    @Binds
+    @Singleton
+    internal abstract fun provideTopicRepository(repository: DefaultTopicRepository): TopicRepository
 }

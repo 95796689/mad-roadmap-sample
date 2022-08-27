@@ -11,7 +11,7 @@ import org.robolectric.annotation.Config
 
 @Config(application = HiltTestApplication::class)
 @RunWith(AndroidJUnit4::class)
-abstract class DatabaseTest {
+abstract class DataTestRule {
     @get:Rule(order = 0)
     val hiltRule: HiltAndroidRule by lazy { HiltAndroidRule(this) }
 

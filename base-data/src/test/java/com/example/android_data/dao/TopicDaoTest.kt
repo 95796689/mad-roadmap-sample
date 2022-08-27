@@ -3,7 +3,7 @@ package com.example.android_data.dao
 import com.example.android_data.*
 import com.example.android_data.getTopicList
 import com.example.android_data.insertTopic
-import com.example.android_data.util.DatabaseTest
+import com.example.android_data.util.DataTestRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @UninstallModules(RoomDatabaseModule::class)
 @HiltAndroidTest
-class TopicDaoTest : DatabaseTest() {
+class TopicDaoTest : DataTestRule() {
     @Inject lateinit var database: SadDatabase
     @Inject lateinit var topicDao: TopicDao
 

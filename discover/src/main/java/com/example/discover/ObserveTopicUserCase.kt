@@ -1,6 +1,7 @@
 package com.example.discover
 
 import com.example.android_data.Topic
+import com.example.android_data.DefaultTopicRepository
 import com.example.android_data.TopicRepository
 import com.example.base_android.SubjectInteractor
 import kotlinx.coroutines.flow.Flow

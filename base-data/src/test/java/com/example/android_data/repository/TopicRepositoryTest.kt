@@ -2,7 +2,7 @@ package com.example.android_data.repository
 
 import com.example.android_data.*
 import com.example.android_data.getTopicList
-import com.example.android_data.util.DatabaseTest
+import com.example.android_data.util.DataTestRule
 import com.example.base_android.inject.BaseProvidesModule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -16,11 +16,11 @@ import org.junit.Test
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@UninstallModules(RoomDatabaseModule::class, BaseProvidesModule::class, TopicDataSourceModule::class)
+@UninstallModules(RoomDatabaseModule::class, BaseProvidesModule::class, TopicModule::class)
 @HiltAndroidTest
-class TopicRepositoryTest : DatabaseTest() {
+class TopicRepositoryTest : DataTestRule() {
 
-    @Inject lateinit var topicRepository: TopicRepository
+    @Inject lateinit var topicRepository: DefaultTopicRepository
     @Inject lateinit var topicDao: TopicDao
 
     @Before

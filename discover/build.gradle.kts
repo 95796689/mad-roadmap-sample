@@ -65,4 +65,14 @@ dependencies {
     // hilt
     implementation(Libs.HILT_LIBRARY)
     kapt(Libs.HILT_COMPILER)
+    testImplementation(Libs.HILT_TEST)
+    kaptTest(Libs.HILT_TEST_COMPILER)
+    // test
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.ROBOLECTRIC)
+    testImplementation(Libs.JUNIT_KTX)
+    testImplementation(Libs.TEST_CORE)
+    testImplementation(Libs.COROUTINES_TEST)
+    testImplementation(Libs.HAMCREST)
+    testImplementation(Libs.MOCKITO)
 }
