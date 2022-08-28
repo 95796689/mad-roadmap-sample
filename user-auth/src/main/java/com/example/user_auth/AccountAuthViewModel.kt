@@ -2,7 +2,9 @@ package com.example.user_auth
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -18,11 +20,23 @@ internal class AccountAuthViewModel @Inject constructor(
         uiState.value = uiState.value.copy(email = newValue)
     }
 
-    suspend fun onSignInClick() {
-        val authResult = accountAuthRepository.authenticate(uiState.value.email, uiState.value.password)
+    fun onPasswordChange(newValue: String) {
+        uiState.value = uiState.value.copy(password = newValue)
     }
 
-    suspend fun createAccount() {
-        val authResult = accountAuthRepository.createAccount(uiState.value.email, uiState.value.password)
+    fun isLoggedIn(): Boolean {
+        return accountAuthRepository.isLoggedIn()
+    }
+
+    fun authenticate() {
+        viewModelScope.launch {
+            accountAuthRepository.authenticate(uiState.value.email, uiState.value.password)
+        }
+    }
+
+    fun createAccount() {
+        viewModelScope.launch {
+            accountAuthRepository.createAccount(uiState.value.email, uiState.value.password)
+        }
     }
 }

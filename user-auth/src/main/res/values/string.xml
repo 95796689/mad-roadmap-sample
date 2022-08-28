@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="email">邮箱</string>
+    <string name="email_input">please input your email</string>
+    <string name="password_input">please input your secret</string>
+    <string name="login_text">login</string>
+    <string name="signup_text">signup</string>
 </resources>

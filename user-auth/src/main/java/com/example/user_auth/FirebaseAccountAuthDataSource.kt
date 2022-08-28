@@ -2,17 +2,16 @@ package com.example.user_auth
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class FirebaseAccountAuthDataSource @Inject constructor() {
-
-    @Inject
-    lateinit var auth: FirebaseAuth
-
+class FirebaseAccountAuthDataSource @Inject constructor(
+    private val auth: FirebaseAuth
+) {
 //    suspend fun createAnonymousAccount(): AuthResult {
 //        return suspendCoroutine { continuation ->
 //            auth.signInAnonymously()
@@ -29,7 +28,7 @@ class FirebaseAccountAuthDataSource @Inject constructor() {
 //    }
 
     suspend fun authenticate(email: String, password: String): AuthResult {
-        return suspendCoroutine { continuation ->
+        return suspendCancellableCoroutine { continuation ->
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -46,7 +45,7 @@ class FirebaseAccountAuthDataSource @Inject constructor() {
     }
 
     suspend fun createAccount(email: String, password: String): AuthResult {
-        return suspendCoroutine { continuation ->
+        return suspendCancellableCoroutine { continuation ->
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
