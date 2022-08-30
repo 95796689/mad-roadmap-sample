@@ -6,6 +6,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.base_android.ObservableLoadingCounter
 import com.example.base_android.UiMessageManager
 import com.example.base_android.collectStatus
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -40,6 +42,11 @@ internal class DiscoverViewModel @Inject constructor(
 
     init {
         observeTopicUserCase(0)
+    }
+
+    fun isUserLogin(): Boolean {
+        val user = Firebase.auth.currentUser
+        return user != null
     }
 
     fun refresh() {

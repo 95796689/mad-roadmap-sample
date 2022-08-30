@@ -17,15 +17,24 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.base_ui_compose.Layout
 
 @Composable
-fun AuthScreen() {
-    AuthScreen(viewModel = hiltViewModel())
+fun AuthScreen(
+    navigateUp: () -> Unit
+) {
+    AuthScreen(navigateUp = navigateUp, viewModel = hiltViewModel())
 }
 
 @Composable
 internal fun AuthScreen(
+    navigateUp: () -> Unit,
     viewModel: AccountAuthViewModel
 ) {
     val uiState by viewModel.uiState
+
+    val loginSuccess by viewModel.loginSuccess
+
+    if (loginSuccess) {
+        navigateUp()
+    }
 
     Column(
         modifier = Modifier.padding(
@@ -39,12 +48,16 @@ internal fun AuthScreen(
         Spacer(Modifier.height(20.dp))
         PasswordField(uiState.password, viewModel::onPasswordChange, Modifier.fillMaxWidth())
         Spacer(Modifier.height(80.dp))
+        if (viewModel.errorMessage.value.isNotEmpty()) {
+            Spacer(Modifier.height(20.dp))
+            ErrorText(errorMessage = viewModel.errorMessage.value)
+        }
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(60.dp)
         ) {
-            LoginConfirmButton(viewModel::authenticate, Modifier.fillMaxWidth())
-            SignupConfirmButton(viewModel::createAccount, Modifier.fillMaxWidth())
+            LoginConfirmButton(viewModel::authenticate)
+            SignupConfirmButton(viewModel::createAccount)
         }
     }
 }
@@ -91,4 +104,9 @@ fun SignupConfirmButton(createAccountAction: () -> Unit,
     ) {
         Text(text = stringResource(id = R.string.signup_text))
     }
+}
+
+@Composable
+fun ErrorText(errorMessage: String, modifier: Modifier = Modifier) {
+    Text(text = errorMessage, modifier = modifier)
 }

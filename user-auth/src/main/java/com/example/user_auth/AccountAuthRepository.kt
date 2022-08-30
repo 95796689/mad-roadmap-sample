@@ -11,13 +11,13 @@ class AccountAuthRepository @Inject constructor(
     private val firebaseAccountAuthDataSource: FirebaseAccountAuthDataSource,
     private val appDispatcher: AppCoroutineDispatchers
 ) {
-    suspend fun authenticate(email: String, password: String) {
+    suspend fun authenticate(email: String, password: String): AuthState {
         return withContext(appDispatcher.io) {
             firebaseAccountAuthDataSource.authenticate(email, password)
         }
     }
 
-    suspend fun createAccount(email: String, password: String) {
+    suspend fun createAccount(email: String, password: String): AuthState {
         return withContext(appDispatcher.io) {
             firebaseAccountAuthDataSource.createAccount(email, password)
         }

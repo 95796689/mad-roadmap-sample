@@ -4,6 +4,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,6 +18,12 @@ internal class AccountAuthViewModel @Inject constructor(
 ) : ViewModel() {
 
     var uiState = mutableStateOf(LoginUiState())
+        private set
+
+    var errorMessage = mutableStateOf("")
+        private set
+
+    var loginSuccess = mutableStateOf(false)
         private set
 
     fun onEmailChange(newValue: String) {
@@ -30,13 +40,27 @@ internal class AccountAuthViewModel @Inject constructor(
 
     fun authenticate() {
         viewModelScope.launch {
-            accountAuthRepository.authenticate(uiState.value.email, uiState.value.password)
+            val authResult = accountAuthRepository.authenticate(uiState.value.email, uiState.value.password)
+            parseAuthResult(authResult)
         }
     }
 
     fun createAccount() {
         viewModelScope.launch {
-            accountAuthRepository.createAccount(uiState.value.email, uiState.value.password)
+            val authResult = accountAuthRepository.createAccount(uiState.value.email, uiState.value.password)
+            parseAuthResult(authResult)
+        }
+    }
+
+    private fun parseAuthResult(authResult: AuthState) {
+        if (authResult is AuthStateSuccess) {
+            errorMessage.value = ""
+            loginSuccess.value = true
+        } else if (authResult is AuthStateFailure) {
+            authResult.throwable?.message?.let {
+                errorMessage.value = it
+                loginSuccess.value = false
+            }
         }
     }
 }

@@ -75,4 +75,7 @@ dependencies {
     testImplementation(Libs.COROUTINES_TEST)
     testImplementation(Libs.HAMCREST)
     testImplementation(Libs.MOCKITO)
+
+    implementation(Libs.FIREBASE_AUTH)
+    implementation(platform(Libs.FIREBASE_BOM))
 }

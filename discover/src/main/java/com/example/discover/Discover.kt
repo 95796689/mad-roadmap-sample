@@ -42,6 +42,7 @@ internal fun Discover(
     Discover(
         state = viewState,
         loginAction = loginAction,
+        isUserLogin = {viewModel.isUserLogin()},
         onMessageShown = { viewModel.clearMessage(it) }
     )
 }
@@ -50,6 +51,7 @@ internal fun Discover(
 internal fun Discover(
     state: DiscoverViewState,
     loginAction: () -> Unit,
+    isUserLogin: () -> Boolean,
     onMessageShown: (id: Long) -> Unit,
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -66,8 +68,8 @@ internal fun Discover(
         scaffoldState = scaffoldState,
         topBar = {
             DiscoverAppBar(
-                refreshing = state.topicRefreshing,
                 onLoginActionClick = loginAction,
+                isUserLogin = isUserLogin,
                 modifier = Modifier.fillMaxWidth()
             )
         },
@@ -109,8 +111,8 @@ internal fun Discover(
 
 @Composable
 fun DiscoverAppBar(
-    refreshing: Boolean,
     onLoginActionClick: () -> Unit,
+    isUserLogin: () -> Boolean,
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
@@ -121,18 +123,9 @@ fun DiscoverAppBar(
         modifier = modifier,
         title = { Text(text = stringResource(R.string.discover_title)) },
         actions = {
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                // This button refresh allows screen-readers, etc to trigger a refresh.
-                // We only show the button to trigger a refresh, not to indicate that
-                // we're currently refreshing, otherwise we have 4 indicators showing the
-                // same thing.
-                Crossfade(
-                    targetState = refreshing,
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                ) { isRefreshing ->
-                    if (!isRefreshing) {
-                        LoginButton(onClick = onLoginActionClick)
-                    }
+            if (!isUserLogin()) {
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    LoginButton(onClick = onLoginActionClick)
                 }
             }
         },

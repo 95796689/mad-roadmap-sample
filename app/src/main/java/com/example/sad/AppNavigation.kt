@@ -42,7 +42,9 @@ internal fun AppNavigation(
         composable(
             route = LeafScreen.Login.route
         ) {
-            AuthScreen()
+            AuthScreen(
+                navigateUp = navController::navigateUp
+            )
         }
     }
 }
