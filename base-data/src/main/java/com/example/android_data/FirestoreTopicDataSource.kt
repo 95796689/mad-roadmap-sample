@@ -6,12 +6,16 @@ import com.google.firebase.database.ktx.getValue
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 
 interface TopicDataSource {
     fun getTopic(): Flow<List<Topic>>
+    suspend fun addTopic(title: String, content: String): AddTopicStatus
 }
 
 class FirestoreTopicDataSource @Inject constructor(
@@ -19,8 +23,6 @@ class FirestoreTopicDataSource @Inject constructor(
 ) : TopicDataSource {
 
     override fun getTopic(): Flow<List<Topic>> {
-        addTopic("test1", "hello")
-
         return callbackFlow {
             val task = database.child(TOPIC_COLLECTION)
             val topicListener = object : ValueEventListener {
@@ -44,9 +46,16 @@ class FirestoreTopicDataSource @Inject constructor(
         }
     }
 
-    private fun addTopic(title: String, content: String) {
-        val topic = Topic(title = title, content = content)
-        database.child(TOPIC_COLLECTION).setValue(topic)
+    override suspend fun addTopic(title: String, content: String): AddTopicStatus {
+        return suspendCoroutine { continuation ->
+            val topic = Topic(title = title, content = content)
+            database.child(TOPIC_COLLECTION).setValue(topic)
+                .addOnSuccessListener {
+                    continuation.resume(AddTopicSuccess)
+                }.addOnFailureListener {
+                    continuation.resume(AddTopicFailure(it))
+                }
+        }
     }
 
     companion object {

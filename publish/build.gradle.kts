@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -42,17 +42,10 @@ android {
 }
 
 dependencies {
+
     implementation(project(":base-android"))
     implementation(project(":base-compose"))
-
-    implementation(Libs.FIREBASE_AUTH)
-    implementation(platform(Libs.FIREBASE_BOM))
-    // coroutine
-    implementation(Libs.COROUTINES)
-    implementation(Libs.COROUTINES_CORE)
-    // hilt
-    implementation(Libs.HILT_LIBRARY)
-    kapt(Libs.HILT_COMPILER)
+    implementation(project(":base-data"))
 
     // compose
     implementation(Libs.COMPOSE_UI)
@@ -66,6 +59,22 @@ dependencies {
     implementation(Libs.COMPOSE_ACTIVITY)
     implementation(Libs.COMPOSE_VIEW_MODEL)
     implementation(Libs.COMPOSE_HILT_NAVIGATION)
-
+    // timber
     implementation(Libs.TIMBER)
+    // hilt
+    implementation(Libs.HILT_LIBRARY)
+    kapt(Libs.HILT_COMPILER)
+    testImplementation(Libs.HILT_TEST)
+    kaptTest(Libs.HILT_TEST_COMPILER)
+    // test
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.ROBOLECTRIC)
+    testImplementation(Libs.JUNIT_KTX)
+    testImplementation(Libs.TEST_CORE)
+    testImplementation(Libs.COROUTINES_TEST)
+    testImplementation(Libs.HAMCREST)
+    testImplementation(Libs.MOCKITO)
+
+    implementation(Libs.FIREBASE_AUTH)
+    implementation(platform(Libs.FIREBASE_BOM))
 }

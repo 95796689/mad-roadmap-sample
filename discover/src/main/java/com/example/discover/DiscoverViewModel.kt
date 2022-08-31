@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class DiscoverViewModel @Inject constructor(
-    private val updateTopicsUserCase: UpdateTopicsUserCase,
     observeTopicUserCase: ObserveTopicUserCase
 ) : ViewModel() {
     private val topicLoadingStatus = ObservableLoadingCounter()
@@ -47,12 +46,6 @@ internal class DiscoverViewModel @Inject constructor(
     fun isUserLogin(): Boolean {
         val user = Firebase.auth.currentUser
         return user != null
-    }
-
-    fun refresh() {
-        viewModelScope.launch {
-            updateTopicsUserCase(0).collectStatus(topicLoadingStatus, uiMessageManager)
-        }
     }
 
     fun clearMessage(id: Long) {

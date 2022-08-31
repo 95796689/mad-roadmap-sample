@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 interface TopicRepository {
     fun getTopic(): Flow<List<Topic>>
+    suspend fun addTopic(title: String, content: String)
 }
 
 class DefaultTopicRepository @Inject constructor(
@@ -14,12 +15,9 @@ class DefaultTopicRepository @Inject constructor(
     private val topicDao: TopicDao,
     private val appCoroutineDispatchers: AppCoroutineDispatchers
 ): TopicRepository {
-    suspend fun refresh() {
+    override suspend fun addTopic(title: String, content: String) {
         withContext(appCoroutineDispatchers.io) {
-            topicDataSource.getTopic()
-                .collect {
-                    topicDao.insertAll(it)
-                }
+            topicDataSource.addTopic(title, content)
         }
     }
 
