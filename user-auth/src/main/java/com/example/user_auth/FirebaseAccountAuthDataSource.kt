@@ -38,6 +38,8 @@ class FirebaseAccountAuthDataSource @Inject constructor(
         return suspendCancellableCoroutine { continuation ->
             if (email.isEmpty() || password.isEmpty()) {
                 continuation.resume(AuthStateFailure(Throwable("empty passport or email")))
+            } else if (name.isEmpty()) {
+                continuation.resume(AuthStateFailure(Throwable("empty name")))
             } else {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener {

@@ -55,6 +55,7 @@ dependencies {
     implementation project(':base-compose')
     implementation project(':discover')
     implementation project(':user-auth')
+    implementation project(':publish')
 
     // Startup for initialize component
     implementation(Libs.STARTUP)

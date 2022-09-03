@@ -85,9 +85,6 @@ private fun NavController.currentScreenAsState(): State<Screen> {
                 destination.hierarchy.any { it.route == Screen.Discover.route } -> {
                     selectedItem.value = Screen.Discover
                 }
-                destination.hierarchy.any { it.route == Screen.Message.route } -> {
-                    selectedItem.value = Screen.Message
-                }
                 destination.hierarchy.any { it.route == Screen.Mine.route } -> {
                     selectedItem.value = Screen.Mine
                 }
@@ -155,12 +152,6 @@ private val HomeNavigationItems = listOf(
         labelResId = R.string.discover_title,
         iconImageVector = Icons.Outlined.Weekend,
         selectedImageVector = Icons.Default.Weekend,
-    ),
-    HomeNavigationItem.ImageVectorIcon(
-        screen = Screen.Message,
-        labelResId = R.string.message_title,
-        iconImageVector = Icons.Outlined.Message,
-        selectedImageVector = Icons.Default.Message,
     ),
     HomeNavigationItem.ImageVectorIcon(
         screen = Screen.Mine,

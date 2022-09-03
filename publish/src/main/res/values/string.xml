@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_input">please input title</string>
+    <string name="content_input">please input content</string>
+    <string name="publish_button">PUBLISH</string>
+</resources>

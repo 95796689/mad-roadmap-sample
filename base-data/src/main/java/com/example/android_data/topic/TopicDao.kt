@@ -22,21 +22,11 @@ abstract class TopicDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertTopic(topic: Topic)
 
-    @Transaction
-    @Query("SELECT * FROM topic ORDER BY page ASC, id ASC")
-    abstract fun entriesPagingSource(): PagingSource<Int, Topic>
-
-    @Query("DELETE FROM topic WHERE page = :page")
-    abstract suspend fun deletePage(page: Int)
-
     @Query("DELETE FROM topic")
     abstract suspend fun deleteAll()
 
     @Delete
     abstract suspend fun deleteTopic(topic: Topic): Int
-
-    @Query("SELECT MAX(page) from topic")
-    abstract suspend fun getLastPage(): Int?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(topics: List<Topic>)

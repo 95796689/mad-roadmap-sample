@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 interface TopicRepository {
     fun getTopic(): Flow<List<TopicWithUser>>
-    suspend fun addTopic(title: String, content: String)
+    suspend fun addTopic(title: String, content: String): AddTopicStatus
     fun observeTopic()
 }
 
@@ -27,8 +27,8 @@ class DefaultTopicRepository @Inject constructor(
         observeTopic()
     }
 
-    override suspend fun addTopic(title: String, content: String) {
-        withContext(appCoroutineDispatchers.io) {
+    override suspend fun addTopic(title: String, content: String): AddTopicStatus {
+        return withContext(appCoroutineDispatchers.io) {
             topicDataSource.addTopic(title, content)
         }
     }

@@ -51,7 +51,8 @@ class FirestoreTopicDataSource @Inject constructor(
             me?.let { user ->
                 val topic = Topic(title = title, content = content, userCreatorId = user.userId)
                 val topicWithUser = TopicWithUser(topic = topic, user = user)
-                database.child(TOPIC_COLLECTION).setValue(topicWithUser)
+                val key = database.child(TOPIC_COLLECTION).push().key
+                database.child(TOPIC_COLLECTION).child(key!!).setValue(topicWithUser)
                     .addOnSuccessListener {
                         continuation.resume(AddTopicSuccess)
                     }.addOnFailureListener {

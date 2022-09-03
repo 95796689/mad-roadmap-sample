@@ -8,4 +8,5 @@
     <string name="cd_profile_pic">Profile picture for %s</string>
 
     <string name="login">login</string>
+    <string name="publish">publish</string>
 </resources>

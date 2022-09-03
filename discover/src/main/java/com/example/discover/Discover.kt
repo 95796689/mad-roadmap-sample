@@ -20,14 +20,17 @@ import com.example.base_ui_compose.bodyWidth
 import com.example.base_ui_compose.rememberStateWithLifecycle
 import com.example.base_ui_compose.theme.AppBarAlphas
 import com.example.base_ui_compose.ui.LoginButton
+import com.example.base_ui_compose.ui.PublishButton
 import com.example.base_ui_compose.ui.SwipeDismissSnackbarHost
 
 @Composable
 fun Discover(
-    loginAction: () -> Unit
+    loginAction: () -> Unit,
+    publishAction: () -> Unit
 ) {
     Discover(
         loginAction = loginAction,
+        publishAction = publishAction,
         viewModel = hiltViewModel(),
     )
 }
@@ -35,6 +38,7 @@ fun Discover(
 @Composable
 internal fun Discover(
     loginAction: () -> Unit,
+    publishAction: () -> Unit,
     viewModel: DiscoverViewModel
 ) {
     val viewState by rememberStateWithLifecycle(viewModel.state)
@@ -42,6 +46,7 @@ internal fun Discover(
     Discover(
         state = viewState,
         loginAction = loginAction,
+        publishAction = publishAction,
         isUserLogin = {viewModel.isUserLogin()},
         onMessageShown = { viewModel.clearMessage(it) }
     )
@@ -51,6 +56,7 @@ internal fun Discover(
 internal fun Discover(
     state: DiscoverViewState,
     loginAction: () -> Unit,
+    publishAction: () -> Unit,
     isUserLogin: () -> Boolean,
     onMessageShown: (id: Long) -> Unit,
 ) {
@@ -69,6 +75,7 @@ internal fun Discover(
         topBar = {
             DiscoverAppBar(
                 onLoginActionClick = loginAction,
+                onPublishActionClick = publishAction,
                 isUserLogin = isUserLogin,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -100,7 +107,7 @@ internal fun Discover(
                     item {
                         TopicCard(topicWithUser = topicWithUser,
                             modifier = Modifier.fillMaxWidth())
-                        Divider(color = Color.Black)
+                        Divider(color = Color.Gray)
                     }
                 }
 
@@ -115,6 +122,7 @@ internal fun Discover(
 @Composable
 fun DiscoverAppBar(
     onLoginActionClick: () -> Unit,
+    onPublishActionClick: () -> Unit,
     isUserLogin: () -> Boolean,
     modifier: Modifier = Modifier
 ) {
@@ -129,6 +137,10 @@ fun DiscoverAppBar(
             if (!isUserLogin()) {
                 CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                     LoginButton(onClick = onLoginActionClick)
+                }
+            } else {
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    PublishButton(onClick = onPublishActionClick)
                 }
             }
         },
@@ -158,7 +170,7 @@ private fun TopicCard(
 
                 topicWithUser.topic?.content?.let {
                     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                        Text(text = "content:it", style = MaterialTheme.typography.body1)
+                        Text(text = "content:$it", style = MaterialTheme.typography.body1)
                     }
                 }
             }
