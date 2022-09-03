@@ -47,6 +47,8 @@ internal fun AuthScreen(
         EmailField(uiState.email, viewModel::onEmailChange, Modifier.fillMaxWidth())
         Spacer(Modifier.height(20.dp))
         PasswordField(uiState.password, viewModel::onPasswordChange, Modifier.fillMaxWidth())
+        Spacer(Modifier.height(20.dp))
+        NameField(uiState.name, viewModel::onNameChange, Modifier.fillMaxWidth())
         Spacer(Modifier.height(80.dp))
         if (viewModel.errorMessage.value.isNotEmpty()) {
             Spacer(Modifier.height(20.dp))
@@ -81,6 +83,17 @@ fun PasswordField(value: String,  onNewValue: (String) -> Unit, modifier: Modifi
         value = value,
         onValueChange = { onNewValue(it) },
         placeholder = { Text(stringResource(R.string.password_input)) },
+    )
+}
+
+@Composable
+fun NameField(value: String,  onNewValue: (String) -> Unit, modifier: Modifier = Modifier) {
+    OutlinedTextField(
+        singleLine = true,
+        modifier = modifier,
+        value = value,
+        onValueChange = { onNewValue(it) },
+        placeholder = { Text(stringResource(R.string.name_input)) },
     )
 }
 

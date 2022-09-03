@@ -1,7 +1,8 @@
 package com.example.android_data.repository
 
 import com.example.android_data.*
-import com.example.android_data.getTopicList
+import com.example.android_data.topic.TopicDao
+import com.example.android_data.topic.TopicModule
 import com.example.android_data.util.DataTestRule
 import com.example.base_android.inject.BaseProvidesModule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -30,9 +31,9 @@ class TopicRepositoryTest : DataTestRule() {
 
     @Test
     fun testGetTopic() = runTest {
-        val topics = getTopicList()
-        topicDao.insertAll(topics)
-        val topic = topicRepository.getTopic().first()[0]
-        assertThat(topics[0], `is`(topic))
+        val topic = getTopic()
+        topicDao.insertTopic(topic)
+        val resultTopic = topicRepository.getTopic().first()[0]
+        assertThat(resultTopic, `is`(topic))
     }
 }

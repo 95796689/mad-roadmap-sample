@@ -17,9 +17,9 @@ class AccountAuthRepository @Inject constructor(
         }
     }
 
-    suspend fun createAccount(email: String, password: String): AuthState {
+    suspend fun createAccount(email: String, password: String, name: String): AuthState {
         return withContext(appDispatcher.io) {
-            firebaseAccountAuthDataSource.createAccount(email, password)
+            firebaseAccountAuthDataSource.createAccount(email, password, name)
         }
     }
 

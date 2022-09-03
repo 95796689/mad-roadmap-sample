@@ -1,8 +1,8 @@
 package com.example.android_data.dao
 
 import com.example.android_data.*
-import com.example.android_data.getTopicList
 import com.example.android_data.insertTopic
+import com.example.android_data.topic.TopicDao
 import com.example.android_data.util.DataTestRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -35,18 +35,17 @@ class TopicDaoTest : DataTestRule() {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun insert() = runTest {
-        val topics = getTopicList()
-        topicDao.insertAll(topics)
-        val id = topics[0].id
+        val topic = getTopic()
+        topicDao.insertTopic(topic)
+        val id = topic.id
         val topicResult = topicDao.queryTopicWithId(id)
-        assertThat(topicResult, `is`(topics[0]))
+        assertThat(topicResult, `is`(topic))
     }
 
     @Test
     fun delete() = runTest {
-        val topics = getTopicList()
-        topicDao.insertAll(topics)
-        val topic = topics[0]
+        val topic = getTopic()
+        topicDao.insertTopic(topic)
         topicDao.deleteTopic(topic)
         assertThat(topicDao.queryTopicWithId(topic.id), `is`(nullValue()))
     }

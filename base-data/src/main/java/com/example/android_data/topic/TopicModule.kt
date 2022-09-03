@@ -1,5 +1,9 @@
-package com.example.android_data
+package com.example.android_data.topic
 
+import com.example.android_data.DefaultTopicRepository
+import com.example.android_data.FirestoreTopicDataSource
+import com.example.android_data.TopicDataSource
+import com.example.android_data.TopicRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

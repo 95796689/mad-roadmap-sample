@@ -2,6 +2,7 @@
 <resources>
     <string name="email_input">please input your email</string>
     <string name="password_input">please input your secret</string>
+    <string name="name_input">please input your name</string>
     <string name="login_text">login</string>
     <string name="signup_text">signup</string>
 </resources>

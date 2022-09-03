@@ -34,6 +34,10 @@ internal class AccountAuthViewModel @Inject constructor(
         uiState.value = uiState.value.copy(password = newValue)
     }
 
+    fun onNameChange(newValue: String) {
+        uiState.value = uiState.value.copy(name = newValue)
+    }
+
     fun isLoggedIn(): Boolean {
         return accountAuthRepository.isLoggedIn()
     }
@@ -47,7 +51,11 @@ internal class AccountAuthViewModel @Inject constructor(
 
     fun createAccount() {
         viewModelScope.launch {
-            val authResult = accountAuthRepository.createAccount(uiState.value.email, uiState.value.password)
+            val authResult = accountAuthRepository.createAccount(
+                uiState.value.email,
+                uiState.value.password,
+                uiState.value.name
+            )
             parseAuthResult(authResult)
         }
     }

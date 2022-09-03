@@ -1,6 +1,5 @@
 package com.example.discover
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -10,16 +9,17 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.android_data.Topic
+import com.example.android_data.TopicWithUser
+import com.example.android_data.topic.Topic
 import com.example.base_ui_compose.Layout
 import com.example.base_ui_compose.bodyWidth
 import com.example.base_ui_compose.rememberStateWithLifecycle
 import com.example.base_ui_compose.theme.AppBarAlphas
 import com.example.base_ui_compose.ui.LoginButton
-import com.example.base_ui_compose.ui.RefreshButton
 import com.example.base_ui_compose.ui.SwipeDismissSnackbarHost
 
 @Composable
@@ -81,7 +81,9 @@ internal fun Discover(
                     .fillMaxWidth()
             )
         },
-        modifier = Modifier.fillMaxSize().statusBarsPadding(),
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding(),
     ) { paddingValue ->
         Scaffold(
             modifier = Modifier.padding(paddingValue)
@@ -94,10 +96,11 @@ internal fun Discover(
                     Spacer(Modifier.height(Layout.gutter))
                 }
 
-                for (topic in state.topicItems) {
+                for (topicWithUser in state.topicItems) {
                     item {
-                        TopicCard(topic = topic,
+                        TopicCard(topicWithUser = topicWithUser,
                             modifier = Modifier.fillMaxWidth())
+                        Divider(color = Color.Black)
                     }
                 }
 
@@ -134,25 +137,42 @@ fun DiscoverAppBar(
 
 @Composable
 private fun TopicCard(
-    topic: Topic,
+    topicWithUser: TopicWithUser,
     modifier: Modifier = Modifier,
 ) {
     Surface(modifier) {
-        Column(
-            Modifier.padding(
-                horizontal = Layout.bodyMargin,
-                vertical = Layout.gutter,
-            )
+        Row(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            topic.title?.let {
-                Text(text = it, style = MaterialTheme.typography.subtitle1)
+            Column(
+                Modifier.padding(
+                    horizontal = Layout.bodyMargin,
+                    vertical = Layout.gutter,
+                )
+            ) {
+                topicWithUser.topic?.title?.let {
+                    Text(text = "title:$it", style = MaterialTheme.typography.subtitle1)
+                }
+
+                Spacer(Modifier.height(4.dp))
+
+                topicWithUser.topic?.content?.let {
+                    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                        Text(text = "content:it", style = MaterialTheme.typography.body1)
+                    }
+                }
             }
 
-            Spacer(Modifier.height(4.dp))
-
-            topic.content?.let {
-                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                    Text(text = it, style = MaterialTheme.typography.body1)
+            topicWithUser.user?.name?.let {
+                Spacer(Modifier.weight(1f))
+                Row(           
+                    Modifier.padding(
+                        horizontal = Layout.bodyMargin,
+                        vertical = Layout.gutter,
+                    )
+                ) {
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(text = "user:$it", style = MaterialTheme.typography.body2)
                 }
             }
         }

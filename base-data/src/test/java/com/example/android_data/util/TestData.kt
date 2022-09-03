@@ -1,13 +1,19 @@
 package com.example.android_data
 
-val topic = Topic(id = 100L, title = "test title", content = "test content")
+import com.example.android_data.topic.Topic
+import com.example.android_data.user.User
+
+val testTopic = Topic(id = 100L, title = "test title", content = "test content", userCreatorId = "userid")
+val testUser = User(userId = "userid", name = "name")
 
 internal suspend fun insertTopic(db: SadDatabase) {
-    db.topicDao().insertAll(getTopicList())
+    db.topicDao().insertTopic(testTopic)
 }
 
-internal fun getTopicList() : List<Topic> {
-    val topics = mutableListOf<Topic>()
-    topics.add(topic)
-    return topics
+internal fun getTopic(): Topic {
+    return testTopic
+}
+
+internal fun getTopicWithUser() : TopicWithUser {
+    return TopicWithUser(topic = testTopic, user = testUser)
 }

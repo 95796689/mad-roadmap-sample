@@ -32,4 +32,7 @@ object RoomDatabaseModule {
 object DatabaseDaoModule {
     @Provides
     fun provideTopicDao(db: SadDatabase) = db.topicDao()
+
+    @Provides
+    fun provideUserDao(db: SadDatabase) = db.userDao()
 }

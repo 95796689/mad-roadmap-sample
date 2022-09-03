@@ -1,9 +1,6 @@
 package com.example.android_data.repository
 
-import com.example.android_data.FirestoreTopicDataSource
-import com.example.android_data.Topic
-import com.example.android_data.TopicDataSource
-import com.example.android_data.getTopicList
+import com.example.android_data.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,9 +19,13 @@ abstract class TopicRepositoryTestModule {
 }
 
 class TestTopicDataSource @Inject constructor(): TopicDataSource {
-    override fun getTopic(): Flow<List<Topic>> {
+    override fun getTopic(): Flow<TopicWithUser> {
         return flow {
-            emit(getTopicList())
+            emit(getTopicWithUser())
         }
+    }
+
+    override suspend fun addTopic(title: String, content: String): AddTopicStatus {
+        return AddTopicSuccess
     }
 }

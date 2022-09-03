@@ -3,6 +3,7 @@ package com.example.discover
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.android_data.TopicRepository
 import com.example.base_android.ObservableLoadingCounter
 import com.example.base_android.UiMessageManager
 import com.example.base_android.collectStatus

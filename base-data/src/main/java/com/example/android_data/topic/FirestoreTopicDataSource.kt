@@ -1,12 +1,13 @@
 package com.example.android_data
 
-import com.example.android_data.Topic
+import com.example.android_data.topic.Topic
+import com.example.android_data.user.UserUtils
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -14,7 +15,7 @@ import kotlin.coroutines.suspendCoroutine
 
 
 interface TopicDataSource {
-    fun getTopic(): Flow<List<Topic>>
+    fun getTopic(): Flow<TopicWithUser>
     suspend fun addTopic(title: String, content: String): AddTopicStatus
 }
 
@@ -22,17 +23,15 @@ class FirestoreTopicDataSource @Inject constructor(
     private val database: DatabaseReference
 ) : TopicDataSource {
 
-    override fun getTopic(): Flow<List<Topic>> {
+    override fun getTopic(): Flow<TopicWithUser> {
         return callbackFlow {
             val task = database.child(TOPIC_COLLECTION)
             val topicListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Get Post object and use the values to update the UI
-                    val topics = mutableListOf<Topic>()
-                    val topic = dataSnapshot.getValue(Topic::class.java)
-                    topic?.let {
-                        topics.add(it)
-                        trySend(topics)
+                    val topicWithUser = dataSnapshot.getValue(TopicWithUser::class.java)
+                    topicWithUser?.let {
+                        trySend(it)
                     }
                 }
 
@@ -48,13 +47,17 @@ class FirestoreTopicDataSource @Inject constructor(
 
     override suspend fun addTopic(title: String, content: String): AddTopicStatus {
         return suspendCoroutine { continuation ->
-            val topic = Topic(title = title, content = content)
-            database.child(TOPIC_COLLECTION).setValue(topic)
-                .addOnSuccessListener {
-                    continuation.resume(AddTopicSuccess)
-                }.addOnFailureListener {
-                    continuation.resume(AddTopicFailure(it))
-                }
+            val me = UserUtils.getMeAsUser()
+            me?.let { user ->
+                val topic = Topic(title = title, content = content, userCreatorId = user.userId)
+                val topicWithUser = TopicWithUser(topic = topic, user = user)
+                database.child(TOPIC_COLLECTION).setValue(topicWithUser)
+                    .addOnSuccessListener {
+                        continuation.resume(AddTopicSuccess)
+                    }.addOnFailureListener {
+                        continuation.resume(AddTopicFailure(it))
+                    }
+            }
         }
     }
 
