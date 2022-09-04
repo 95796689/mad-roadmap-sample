@@ -51,7 +51,6 @@ class DefaultTopicRepository @Inject constructor(
                     }
                 }
             }
-            Timber.i("observe topic finish")
         }
     }
 }
