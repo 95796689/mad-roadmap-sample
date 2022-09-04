@@ -29,9 +29,11 @@ class FirestoreTopicDataSource @Inject constructor(
             val topicListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Get Post object and use the values to update the UI
-                    val topicWithUser = dataSnapshot.getValue(TopicWithUser::class.java)
-                    topicWithUser?.let {
-                        trySend(it)
+                    for (postSnapshot in dataSnapshot.children) {
+                        val topicWithUser = postSnapshot.getValue(TopicWithUser::class.java)
+                        topicWithUser?.let {
+                            trySend(it)
+                        }
                     }
                 }
 
@@ -40,7 +42,7 @@ class FirestoreTopicDataSource @Inject constructor(
                     Timber.w("loadTopic:onCancelled", databaseError.toException())
                 }
             }
-            task.addListenerForSingleValueEvent(topicListener)
+            task.addValueEventListener(topicListener)
             awaitClose { task.removeEventListener(topicListener) }
         }
     }

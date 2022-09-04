@@ -7,6 +7,7 @@ import com.example.android_data.user.UserDao
 import com.example.base_android.AppCoroutineDispatchers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 import javax.inject.Inject
 
 interface TopicRepository {
@@ -50,6 +51,7 @@ class DefaultTopicRepository @Inject constructor(
                     }
                 }
             }
+            Timber.i("observe topic finish")
         }
     }
 }
