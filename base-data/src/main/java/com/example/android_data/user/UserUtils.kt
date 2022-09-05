@@ -11,4 +11,12 @@ object UserUtils {
         }
         return null
     }
+
+    fun getMeId(): String {
+        val user = Firebase.auth.currentUser
+        user?.let {
+            return it.uid
+        }
+        return ""
+    }
 }

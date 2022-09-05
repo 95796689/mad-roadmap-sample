@@ -4,6 +4,7 @@ import androidx.room.withTransaction
 import com.example.android_data.topic.Topic
 import com.example.android_data.topic.TopicDao
 import com.example.android_data.user.UserDao
+import com.example.android_data.user.UserUtils
 import com.example.base_android.AppCoroutineDispatchers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +15,7 @@ interface TopicRepository {
     fun getTopic(): Flow<List<TopicWithUser>>
     suspend fun addTopic(title: String, content: String): AddTopicStatus
     fun observeTopic()
+    fun observeUserWithTopics(): Flow<UserWithTopics>
 }
 
 class DefaultTopicRepository @Inject constructor(
@@ -52,5 +54,9 @@ class DefaultTopicRepository @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun observeUserWithTopics(): Flow<UserWithTopics> {
+        return userDao.observeUserWithTopics(UserUtils.getMeId())
     }
 }
