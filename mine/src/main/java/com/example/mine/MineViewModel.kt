@@ -1,5 +1,6 @@
 package com.example.mine
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_data.TopicRepository
@@ -8,16 +9,22 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MineViewModel @Inject constructor(
-    topicRepository: TopicRepository
+    private val topicRepository: TopicRepository
 ) : ViewModel() {
 
-    val state: StateFlow<UserWithTopics?> = topicRepository.observeUserWithTopics().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = null,
-    )
+    var mineState = mutableStateOf(UserWithTopics())
+        private set
+
+    fun getUserWithTopics() {
+        viewModelScope.launch {
+            mineState.value = topicRepository.getUserWithTopics()
+        }
+    }
+
+
 }

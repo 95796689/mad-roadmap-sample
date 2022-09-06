@@ -15,7 +15,7 @@ interface TopicRepository {
     fun getTopic(): Flow<List<TopicWithUser>>
     suspend fun addTopic(title: String, content: String): AddTopicStatus
     fun observeTopic()
-    fun observeUserWithTopics(): Flow<UserWithTopics>
+    suspend fun getUserWithTopics(): UserWithTopics
 }
 
 class DefaultTopicRepository @Inject constructor(
@@ -56,7 +56,7 @@ class DefaultTopicRepository @Inject constructor(
         }
     }
 
-    override fun observeUserWithTopics(): Flow<UserWithTopics> {
-        return userDao.observeUserWithTopics(UserUtils.getMeId())
+    override suspend  fun getUserWithTopics(): UserWithTopics {
+        return userDao.getUserWithTopics(UserUtils.getMeId())
     }
 }

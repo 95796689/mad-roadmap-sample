@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.android_data.UserWithTopics
 import com.example.android_data.topic.Topic
 import com.example.android_data.user.User
 import com.example.base_ui_compose.Layout
@@ -32,7 +33,9 @@ fun MineScreen(
     viewModel: MineViewModel
 ) {
 
-    val viewState by rememberStateWithLifecycle(viewModel.state)
+    viewModel.getUserWithTopics()
+    val userWithTopics: UserWithTopics? by viewModel.mineState
+
     Scaffold(
         topBar = {
             MineAppBar(
@@ -55,11 +58,11 @@ fun MineScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             ProfileSection(
-                user = viewState?.user
+                user = userWithTopics?.user
             )
             Spacer(Modifier.height(30.dp))
             MyTopicsSection(
-                topics = viewState?.topicList
+                topics = userWithTopics?.topicList
             )
         }
     }
