@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.base_android.util.Analytics
 import com.example.base_ui_compose.theme.AppBarAlphas
@@ -47,23 +48,29 @@ internal fun MainScreen(
         }
     }
 
+    val bottomBarTabs = Screen.values()
+    val bottomBarRoutes = bottomBarTabs.map { it.route }
+    val shouldShowBottomBar = navController.currentBackStackEntryAsState().value?.destination?.route in bottomBarRoutes
+
     Scaffold(
         bottomBar = {
-            val currentSelectedItem by navController.currentScreenAsState()
-            HomeBottomNavigation(
-                selectedNavigation = currentSelectedItem,
-                onNavigationSelected = { selected ->
-                    navController.navigate(selected.route) {
-                        launchSingleTop = true
-                        restoreState = true
+            if (shouldShowBottomBar) {
+                val currentSelectedItem by navController.currentScreenAsState()
+                HomeBottomNavigation(
+                    selectedNavigation = currentSelectedItem,
+                    onNavigationSelected = { selected ->
+                        navController.navigate(selected.route) {
+                            launchSingleTop = true
+                            restoreState = true
 
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
                         }
-                    }
-                },
-                modifier = Modifier.fillMaxWidth().navigationBarsPadding()
-            )
+                    },
+                    modifier = Modifier.fillMaxWidth().navigationBarsPadding()
+                )
+            }
         }
     ) {
         Row(Modifier.fillMaxSize()) {

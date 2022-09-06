@@ -11,13 +11,18 @@ import com.example.mine.MineScreen
 import com.example.publish.PublishScreen
 import com.example.user_auth.AuthScreen
 
-
-internal sealed class Screen(val route: String) {
-    object Discover : Screen("discover")
-    object Mine : Screen("mine")
+enum class Screen(val route: String) {
+    Discover("discover"),
+    Mine("mine")
 }
 
+//internal sealed class Screen(val route: String) {
+//    object Discover : Screen("discover")
+//    object Mine : Screen("mine")
+//}
+
 internal sealed class LeafScreen(val route: String) {
+    object Discover : LeafScreen("leaf_discover")
     object Login : LeafScreen("login")
     object Publish : LeafScreen("publish")
 }
@@ -32,6 +37,11 @@ internal fun AppNavigation(
         startDestination = Screen.Discover.route,
     ) {
         composable(
+            route = Screen.Mine.route
+        ) {
+            MineScreen()
+        }
+        composable(
             route = Screen.Discover.route
         ) {
             Discover(
@@ -43,13 +53,6 @@ internal fun AppNavigation(
                 }
             )
         }
-
-        composable(
-            route = Screen.Mine.route
-        ) {
-            MineScreen()
-        }
-
         composable(
             route = LeafScreen.Login.route
         ) {
@@ -57,7 +60,6 @@ internal fun AppNavigation(
                 navigateUp = navController::navigateUp
             )
         }
-
         composable(
             route = LeafScreen.Publish.route
         ) {
@@ -67,6 +69,3 @@ internal fun AppNavigation(
         }
     }
 }
-
-private val NavDestination.hostNavGraph: NavGraph
-    get() = hierarchy.first { it is NavGraph } as NavGraph

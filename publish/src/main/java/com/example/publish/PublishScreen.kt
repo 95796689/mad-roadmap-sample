@@ -3,6 +3,7 @@ package com.example.publish
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,23 +34,25 @@ internal fun PublishScreen(
         navigateUp()
     }
 
-    Column(
-        modifier = Modifier.padding(
-            horizontal = Layout.bodyMargin,
-            vertical = Layout.gutter,
-        ),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(Modifier.height(80.dp))
-        TitleField(uiState.title, viewModel::onTitleChange, Modifier.fillMaxWidth())
-        Spacer(Modifier.height(20.dp))
-        ContentField(uiState.content, viewModel::onContentChange, Modifier.fillMaxWidth())
-        Spacer(Modifier.height(80.dp))
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(60.dp)
+    Scaffold {
+        Column(
+            modifier = Modifier.padding(it).padding(
+                horizontal = Layout.bodyMargin,
+                vertical = Layout.gutter,
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            PublishButton(viewModel::addTopic)
+            Spacer(Modifier.height(80.dp))
+            TitleField(uiState.title, viewModel::onTitleChange, Modifier.fillMaxWidth())
+            Spacer(Modifier.height(20.dp))
+            ContentField(uiState.content, viewModel::onContentChange, Modifier.fillMaxWidth())
+            Spacer(Modifier.height(80.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(60.dp)
+            ) {
+                PublishButton(viewModel::addTopic)
+            }
         }
     }
 }

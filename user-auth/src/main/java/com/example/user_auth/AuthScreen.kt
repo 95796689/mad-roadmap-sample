@@ -36,30 +36,32 @@ internal fun AuthScreen(
         navigateUp()
     }
 
-    Column(
-        modifier = Modifier.padding(
-            horizontal = Layout.bodyMargin,
-            vertical = Layout.gutter,
-        ),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(Modifier.height(80.dp))
-        EmailField(uiState.email, viewModel::onEmailChange, Modifier.fillMaxWidth())
-        Spacer(Modifier.height(20.dp))
-        PasswordField(uiState.password, viewModel::onPasswordChange, Modifier.fillMaxWidth())
-        Spacer(Modifier.height(20.dp))
-        NameField(uiState.name, viewModel::onNameChange, Modifier.fillMaxWidth())
-        Spacer(Modifier.height(80.dp))
-        if (viewModel.errorMessage.value.isNotEmpty()) {
-            Spacer(Modifier.height(20.dp))
-            ErrorText(errorMessage = viewModel.errorMessage.value)
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(60.dp)
+    Scaffold() {
+        Column(
+            modifier = Modifier.padding(it).padding(
+                horizontal = Layout.bodyMargin,
+                vertical = Layout.gutter,
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LoginConfirmButton(viewModel::authenticate)
-            SignupConfirmButton(viewModel::createAccount)
+            Spacer(Modifier.height(80.dp))
+            EmailField(uiState.email, viewModel::onEmailChange, Modifier.fillMaxWidth())
+            Spacer(Modifier.height(20.dp))
+            PasswordField(uiState.password, viewModel::onPasswordChange, Modifier.fillMaxWidth())
+            Spacer(Modifier.height(20.dp))
+            NameField(uiState.name, viewModel::onNameChange, Modifier.fillMaxWidth())
+            Spacer(Modifier.height(80.dp))
+            if (viewModel.errorMessage.value.isNotEmpty()) {
+                Spacer(Modifier.height(20.dp))
+                ErrorText(errorMessage = viewModel.errorMessage.value)
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(60.dp)
+            ) {
+                LoginConfirmButton(viewModel::authenticate)
+                SignupConfirmButton(viewModel::createAccount)
+            }
         }
     }
 }
