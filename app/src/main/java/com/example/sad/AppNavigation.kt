@@ -7,6 +7,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.discover.Discover
+import com.example.mine.MineScreen
 import com.example.publish.PublishScreen
 import com.example.user_auth.AuthScreen
 
@@ -41,6 +42,12 @@ internal fun AppNavigation(
                     navController.navigate(LeafScreen.Publish.route)
                 }
             )
+        }
+
+        composable(
+            route = Screen.Mine.route
+        ) {
+            MineScreen()
         }
 
         composable(
