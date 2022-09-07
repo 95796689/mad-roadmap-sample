@@ -1,7 +1,7 @@
 Sad(work in progress)
 ======================
 ## Description
-Sad is a demo app which uses modern android develop
+Sad is a demo app which uses modern android development
 
 ## Android development skills
 
