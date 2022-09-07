@@ -9,7 +9,7 @@ Sad is a demo app which uses modern android develop
 * Even though the UI of Sad is really simple but 100% written in [Jetpack Compose](https://developer.android.com/jetpack/compose)
 * Uses [Kotlin Coroutines](https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html) and [Kotlin Flow](https://developer.android.com/kotlin/flow) for asynchronous operations
 * Follows [architecture guidance](https://developer.android.com/topic/architecture) for architecture design
-* Uses a single-activity architecture, using [Navigation](https://developer.android.com/guide/navigation) for user face navigation
+* Uses a single-activity architecture and [Navigation](https://developer.android.com/guide/navigation) for user face navigation
 * Uses [Firebase](https://firebase.google.com/) for store data, auth user and crashlytics
 * Uses [Hilt](https://dagger.dev/hilt/) for dependency injection
 * Uses [Room](https://developer.android.com/training/data-storage/room) for save and fetch data
