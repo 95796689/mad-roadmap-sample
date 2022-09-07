@@ -160,7 +160,7 @@ private fun TopicCard(
                 Modifier.padding(
                     horizontal = Layout.bodyMargin,
                     vertical = Layout.gutter,
-                )
+                ).weight(0.7f)
             ) {
                 topicWithUser.topic?.title?.let {
                     Text(text = "title:$it", style = MaterialTheme.typography.subtitle1)
@@ -176,14 +176,13 @@ private fun TopicCard(
             }
 
             topicWithUser.user?.name?.let {
-                Spacer(Modifier.weight(1f))
+                Spacer(Modifier.weight(0.1f))
                 Row(           
                     Modifier.padding(
                         horizontal = Layout.bodyMargin,
                         vertical = Layout.gutter,
-                    )
+                    ).weight(0.2f)
                 ) {
-                    Spacer(modifier = Modifier.weight(1f))
                     Text(text = "user:$it", style = MaterialTheme.typography.body2)
                 }
             }
