@@ -22,17 +22,17 @@ Sad needs to run on a real hardware device, if in china also needs to use vpn
 Sad is app which user can publish topics for other user read or discover other topics
 
 ### discover
-user can find all topics
+
 <img alt="Show discover demo" height="800" src="demonstration/discover.jpeg" width="360"/>
 
 ### publish
-user can publish a new topic
+
 <img alt="Show publish demo" height="800" src="demonstration/publish.jpeg" width="360"/>
 
 ### auth
-user sign in and sign up
+
 <img alt="Show auth demo" height="800" src="demonstration/auth.jpeg" width="360"/>
 
 ### mine
-user see profile
+
 <img alt="Show mine demo" height="800" src="demonstration/mine.jpeg" width="360"/>
